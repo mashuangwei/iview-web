@@ -12,8 +12,8 @@
                 :open-names="openedSubmenuArr"
                 :menu-list="menuList">
                 <div slot="top" class="logo-con">
-                    <img v-show="!shrink"  src="../images/logo.jpg" key="max-logo" />
-                    <img v-show="shrink" src="../images/logo-min.jpg" key="min-logo" />
+                    <img v-show="!shrink"  src="../images/logo.png" key="max-logo" />
+                    <!--<img v-show="shrink" src="../images/logo-min.jpg" key="min-logo" />-->
                 </div>
             </shrinkable-menu>
         </div>
@@ -75,7 +75,8 @@
     import themeSwitch from './main-components/theme-switch/theme-switch.vue';
     import Cookies from 'js-cookie';
     import util from '@/libs/util.js';
-    
+    import $ from 'jquery';
+
     export default {
         components: {
             shrinkableMenu,
@@ -144,12 +145,26 @@
                     });
                 } else if (name === 'loginout') {
                     // 退出登录
-                    this.$store.commit('logout', this);
-                    this.$store.commit('clearOpenedSubmenu');
-                    this.$router.push({
-                        name: 'login'
+                    let url = '/api/logout'
+                    $.ajax({
+                        type: 'POST',
+                        async: true,
+                        url: url,
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        success: (result) => {
+                            this.$store.commit('logout', this);
+                            this.$store.commit('clearOpenedSubmenu');
+                            this.$router.push({
+                                name: 'login'
+                            });
+                            this.$Message.success(result.msg);
+                        },
+                        error: (errorMsg) => {
+                            window.ajaxFail.call(this, errorMsg);
+                        }
                     });
-                }
+                };
             },
             checkTag (name) {
                 let openpageHasTag = this.pageTagsList.some(item => {

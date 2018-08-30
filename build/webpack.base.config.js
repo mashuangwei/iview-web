@@ -65,6 +65,11 @@ module.exports = {
                 test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
                 loader: 'url-loader?limit=1024'
             },
+            //webpack.config.js
+            {
+                test: /iview.src.*?js$/,
+                loader: 'babel-loader'
+            },
             {
                 test: /\.(html|tpl)$/,
                 loader: 'html-loader'
