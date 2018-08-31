@@ -262,6 +262,7 @@
                         // this.$store.commit('setAvator', 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3448484253,3685836170&fm=27&gp=0.jpg');
                     },
                     error: (errorMsg) => {
+                        this.console.log('跳转' + errorMsg);
                         window.ajaxFail.call(this, errorMsg);
                     }
                 });
@@ -276,7 +277,7 @@
                 return item.label;
             },
             addProject () {
-                this.addProjectModal = true
+                this.addProjectModal = true;
                 // this.commonTablsName = '多音字标注'
                 // this.$set(this.commonTablsName, '项目&版本维护');
             },
